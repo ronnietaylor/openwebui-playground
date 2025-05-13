@@ -7,6 +7,7 @@ services:
       - open-webui:/app/backend/data
       - ./ssl/cert.pem:/app/cert.pem
       - ./ssl/key.pem:/app/key.pem
+    restart: unless-stopped
 
   nginx:
     image: nginx:latest
@@ -16,6 +17,14 @@ services:
       - ./nginx/conf.d/:/etc/nginx/conf.d/
       - ./ssl/cert.pem:/cert.pem
       - ./ssl/key.pem:/key.pem
+    depends_on:
+      - open-webui
+    restart: unless-stopped
 
 volumes:
   open-webui:
+
+# Ensure services are on the same network 
+networks:
+  default:
+    driver: bridge
