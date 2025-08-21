@@ -21,6 +21,17 @@ services:
       - open-webui
     restart: unless-stopped
 
+  kokoro-web:
+    image: ghcr.io/eduardolat/kokoro-web:latest
+    ports:
+      - "3000:3000"
+    environment:
+      # Change this to any secret key to use as your OpenAI compatible API key
+      - KW_SECRET_API_KEY=<your-secret-key>
+    volumes:
+      - ./kokoro-cache:/kokoro/cache
+    restart: unless-stopped
+
 volumes:
   open-webui:
 
