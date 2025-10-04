@@ -1,1 +1,8 @@
+.DS_Store
 *.pem
+
+__pycache__/
+.vscode/
+
+# Ignore the following files and directories
+kokoro-cache/
