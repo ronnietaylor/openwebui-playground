@@ -4,9 +4,18 @@ services:
     ports:
       - "3001:8080"
     volumes:
-      - open-webui:/app/backend/data
+      - ${DATA_PATH}:/app/backend/data
       - ./ssl/cert.pem:/app/cert.pem
       - ./ssl/key.pem:/app/key.pem
+    env_file:
+      - ./open-webui.env
+    environment:
+      - AUTOMATIC1111_BASE_URL=http://localhost:7860/
+      - ENABLE_IMAGE_GENERATION=true
+      - IMAGE_GENERATION_MODEL=v1-5-pruned-emaonly
+      - IMAGE_SIZE=640x800
+      - ENABLE_NOTES=true
+      - ENABLE_MEMORIES=true
     restart: unless-stopped
 
   nginx:
@@ -25,15 +34,14 @@ services:
     image: ghcr.io/eduardolat/kokoro-web:latest
     ports:
       - "3000:3000"
-    environment:
-      # Change this to any secret key to use as your OpenAI compatible API key
-      - KW_SECRET_API_KEY=<your-secret-key>
+    env_file:
+      - ./kokoro.env
     volumes:
       - ./kokoro-cache:/kokoro/cache
     restart: unless-stopped
 
 volumes:
-  open-webui:
+  open-webui-data:
 
 # Ensure services are on the same network 
 networks:
