@@ -45,8 +45,9 @@ openwebui-playground/
 ├── gen_private_key.sh       # Script to generate self-signed SSL certificates
 ├── README.md                # This file
 ├── ssl/                     # SSL certificate directory
-│   ├── cert.pem             # SSL certificate file
-│   └── key.pem              # SSL private key file
+├── ├── .keep                # Directory placeholder
+│   ├── cert.pem             # Locally generated SSL certificate file
+│   └── key.pem              # Locally generated SSL private key file
 ├── nginx/                   # Nginx configuration directory
 │   └── conf.d/
 │       └── open-webui.conf  # Nginx server block configuration
